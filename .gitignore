@@ -1,0 +1,78 @@
+# =====================================================================
+#  Turbo Coin Rush 3D — .gitignore para publicação no GitHub Pages
+#  Lembrete: no GitHub Pages (plano gratuito) o repositório é PÚBLICO.
+#  Tudo que for commitado fica visível para qualquer pessoa.
+# =====================================================================
+
+# ---- Configurações locais do Claude Code / agentes de IA ----
+# (settings.local.json guarda caminhos e permissões da sua máquina)
+.claude/
+CLAUDE.local.md
+
+# ---- Segredos e credenciais (nunca publicar) ----
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.*
+credentials*.json
+
+# ---- Sistema operacional ----
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+.DS_Store
+._*
+
+# ---- Editores / IDEs ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- Python / testes automatizados (Playwright) ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+pwv/
+test-results/
+playwright-report/
+shots/
+screenshots/
+*.log
+
+# ---- Node (caso usem ferramentas de build no futuro) ----
+node_modules/
+dist/
+.cache/
+
+# ---- Arquivos temporários e backups ----
+*.tmp
+*.temp
+*.bak
+*.orig
+*.zip
+*.7z
+*.rar
+
+# ---- Mídia bruta de gravação e projetos 3D (pesados / privados) ----
+# Remova a linha correspondente se quiser publicar algum desses arquivos.
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+*.wav
+*.flac
+*.psd
+*.blend
+*.blend1
+*.prproj
+*.aep
+*.drp
