@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- CSP estrita: os hashes dos blocos script/style embutidos são gerados no build.
      Se editar algum desses blocos à mão, o Chrome mostra no console o hash esperado ('sha256-...') — basta atualizá-lo aqui. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Gk+ROH94JFD/C3ybfv/SAN1jssWzOevmbyxTNtANaFM=' 'sha256-EtjjIb6UVeYj3i0v5WbHNFqP4d+0S/PcAAyijQMzIoE=' https://cdn.jsdelivr.net/npm/three@0.170.0/; style-src 'sha256-i3e6YhAERvFiKisLfMvg88gSqJfxX4lA6mdi9DrtoOA=' 'sha256-7kaa0iGAaUsxExHswKmkqYQTu2obKcCHJ7o3p17gtQg='; font-src data:; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Gk+ROH94JFD/C3ybfv/SAN1jssWzOevmbyxTNtANaFM=' 'sha256-sm/s0+8kjXFh0H4dqKwMGAdg53MuqGfPGOvabejyAYs=' https://cdn.jsdelivr.net/npm/three@0.170.0/; style-src 'sha256-i3e6YhAERvFiKisLfMvg88gSqJfxX4lA6mdi9DrtoOA=' 'sha256-7kaa0iGAaUsxExHswKmkqYQTu2obKcCHJ7o3p17gtQg='; font-src data:; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Turbo Coin Rush 3D</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%8E%EF%B8%8F%3C/text%3E%3C/svg%3E">
@@ -233,7 +233,7 @@ body.inmenu #toasts,body.inmenu #hint,body.inmenu #pipWrap,body.inmenu #countdow
       <div><kbd>Esc</kbd> soltar o mouse</div>
       <div><kbd>P</kbd> pausa · <kbd>Tab</kbd> menu</div>
     </div>
-    <div class="note">← → ou clique para escolher o modo · o som começa mudo (painel no canto superior direito)</div>
+    <div class="note">← → ou clique para escolher o modo · o som começa no primeiro clique ou tecla (volumes no canto superior direito)</div>
   </div>
 </div>
 <div id="pauseOv" class="overlay hidden"><div class="menuBox"><div class="logo logo-sm">PAUSADO</div><div class="sub">Pressione <kbd>P</kbd> para continuar</div></div></div>
@@ -2182,7 +2182,7 @@ function storedVol(k, d) { const v = Number(store.get(k, d)); return Number.isFi
 const AUD = {
   ctx: null, master: null, musicG: null, sfxG: null,
   musicVol: storedVol('musicVol', 55), sfxVol: storedVol('sfxVol', 70),
-  musicMuted: true, sfxMuted: true,
+  musicMuted: false, sfxMuted: false,
   engines: [], nextT: 0, step: 0, noise: null, verb: null, delay: null,
   init() {
     if (this.ctx) { if (this.ctx.state === 'suspended') this.ctx.resume(); return; }
@@ -2537,6 +2537,7 @@ document.querySelectorAll('.arow').forEach(row => {
   row.querySelector('.inc').addEventListener('click', () => setVol(ch, get() + 10));
   row.querySelector('.mute').addEventListener('click', () => toggleMute(ch, false));
 });
+addEventListener('pointerdown', () => AUD.init(), { capture: true });
 document.addEventListener('pointerup', e => { const el = e.target.closest && e.target.closest('button,input'); if (el) setTimeout(() => el.blur(), 0); });
 refreshAudioUI();
 
